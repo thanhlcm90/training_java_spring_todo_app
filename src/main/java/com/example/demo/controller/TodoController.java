@@ -9,34 +9,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:3000"})
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api/todo")
 public class TodoController {
     @Autowired
     private TodoService todoService;
     private final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
     //POST
-    @PostMapping("/todo")
+    @PostMapping()
     public Todo addTodo(@RequestBody Todo todo) {
         logger.info("Todo object {}", todo.toString());
         return todoService.saveTodo(todo);
     }
 
     //GET
-    @GetMapping("/todo")
+    @GetMapping()
     public List<Todo> getAllTodo() {
         return todoService.getTodos();
     }
 
     // GET
-    @GetMapping("/todo/{id}")
+    @GetMapping("/{id}")
     public Todo findTodoById(@PathVariable int id) {
         return todoService.getTodoById(id);
     }
 
     //PUT
-    @PutMapping("/todo/{id}")
+    @PutMapping("/{id}")
     public Todo updateCourse(@PathVariable int id, @RequestBody Todo todo)
     {
         System.out.println("UPDATED");
@@ -44,7 +45,7 @@ public class TodoController {
     }
 
     //DELETE
-    @DeleteMapping("/todo/{id}")
+    @DeleteMapping("/{id}")
     public String deleteCourse(@PathVariable int id) {
         return todoService.deleteTodo(id);
     }

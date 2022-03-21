@@ -17,4 +17,7 @@ public class Todo {
     private int id;
 
     private String name;
+
+    @Column(name = "username")
+    private String username;
 }
